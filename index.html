@@ -22,7 +22,7 @@
       const userInput = document.getElementById('trackingNumber').value;
 
       try {
-        const response = await fetch(`http://127.0.0.1:5000/trackPackage?userInput=${userInput}`, {
+        const response = await fetch(`http://127.0.0.1:5000/api?userInput=${userInput}`, {
           method: 'GET',
         });
         const responseData = await response.json();
