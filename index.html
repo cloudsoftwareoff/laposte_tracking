@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Information</title>
+</head>
+<body>
+
+  <h2>Tracking Information</h2>
+
+  <form id="trackingForm">
+    <label for="trackingNumber">Enter Tracking Number:</label>
+    <input type="text" id="trackingNumber" name="trackingNumber" required>
+    <button type="button" onclick="trackPackage()">Track Package</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    async function trackPackage() {
+      const userInput = document.getElementById('trackingNumber').value;
+
+      try {
+        const response = await fetch(`http://127.0.0.1:8081/trackPackage?userInput=${userInput}`, {
+          method: 'GET',
+        });
+        const responseData = await response.json();
+        const resultDiv = document.getElementById('result');
+        if(responseData !=null ){
+        resultDiv.innerHTML = '<h3>Result:</h3>';
+        resultDiv.appendChild(createTable(responseData));
+        }else{
+            resultDiv.innerHTML = '<h3>Invalid tracking code:</h3>'
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+
+    function createTable(data) {
+  const table = document.createElement('table');
+  table.border = '1';
+
+  for (const row of data) {
+    const tr = document.createElement('tr');
+
+    for (const cell of row) {
+      const td = document.createElement('td');
+      td.textContent = cell;
+      tr.appendChild(td);
+    }
+
+    table.appendChild(tr);
+  }
+
+  return table;
+}
+
+  </script>
+
+</body>
+</html>
