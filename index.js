@@ -3,11 +3,14 @@ const axios = require('axios');
 const cors = require('cors');
 const cheerio = require('cheerio');
 const app = express();
-const PORT = 8081;
+const PORT = 5000;
 
-app.use(express.static('public'));
+
 app.use(cors());
-app.get('/trackPackage', async (req, res) => {
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  });
+app.get('/api', async (req, res) => {
     const userInput = req.query.userInput;
     
     const url = `http://www.rapidposte.poste.tn/fr/Item_Events.asp?ItemId=${userInput}&submit=Valider`;
