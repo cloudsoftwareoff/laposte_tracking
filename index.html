@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tracking Information</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -21,13 +22,13 @@
     async function trackPackage() {
       const userInput = document.getElementById('trackingNumber').value;
 
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML='loading ...';
       try {
         const response = await fetch(`http://127.0.0.1:5000/api?userInput=${userInput}`, {
-          method: 'GET',
-          body: ({userInput:userInput})
+          method: 'GET'
         });
         const responseData = await response.json();
-        const resultDiv = document.getElementById('result');
         if(responseData !=null ){
         resultDiv.innerHTML = '<h3>Result:</h3>';
         resultDiv.appendChild(createTable(responseData));
@@ -60,6 +61,6 @@
 }
 
   </script>
-
+<footer>Powered by <a href="https://cloudsoftware.tn">Cloud Software Inc.</a></footer>
 </body>
 </html>
